@@ -6,6 +6,13 @@ using namespace std;
 int totalTransactions = 0;
 
 
+// make static variable inside transactionCount() to count transactions
+int transactionCount(){ // to be called whenever a transaction is made
+    static int count = 0;
+    count++;
+    return count;
+}
+
 //  make functions for deposit and withdraw
 void deposit(double &balance, double amount){
     if(amount < 0){
@@ -45,12 +52,6 @@ void displayMessage(string msg){
     cout << msg;
 }
 
-// make static variable inside transactionCount() to count transactions
-int transactionCount(){ // to be called whenever a transaction is made
-    static int count = 0;
-    count++;
-    return count;
-}
 
 
 int main(){
@@ -60,7 +61,7 @@ int main(){
     int choice,amount,account;
     while(true){
         cout << "\nWhat can we do for you today?\n";
-        cout << "1)Deposit\n2)Withdraw\n3)Print total\n4)Exit";
+        cout << "1)Deposit\n2)Withdraw\n3)Print total\n4)Exit\n";
 
         cin >> choice;
         if(choice == 1){
@@ -68,14 +69,19 @@ int main(){
             cin >> account;
             cout << "How much will you deposit?\n";
             cin >> amount;
-            deposit(bank[account], amount);// function call to deposit
+            
+            if((account + 1) < 5){ // do account + 1 since arrays start at 0
+                deposit(bank[account - 1], amount);// function call to deposit
+            }    
+            cout << "Invalid account. Entering main menu....\n";
         }
         else if(choice == 2){
             cout << "Please select which account:\n";
             cin >> account;
             cout << "How much will you withdraw?\n";
             cin >> amount;
-            withdraw(bank[account], amount); // function call to withdraw
+            // do account + 1 since array starts at 0
+            withdraw(bank[account - 1], amount); // function call to withdraw
         }
         else if(choice == 3){
             cout << "Please enter your badge number: "; 
@@ -85,7 +91,7 @@ int main(){
         }
         else if(choice == 4){
             // show comparison of static and global variable
-            cout << "(transactionsCount called" << transactionCount() << "times\n";
+            cout << "(transactionsCount called" << transactionCount() << " times\n";
             cout << "(totalTransactions = " << totalTransactions << ")\n";
             displayMessage("Logging off.");
             break; // break from loop
@@ -95,7 +101,6 @@ int main(){
             continue;
         }
     }
-
 
     return 0;
 }
