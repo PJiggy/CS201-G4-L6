@@ -84,8 +84,9 @@ int main(){
             withdraw(bank[account - 1], amount); // function call to withdraw
         }
         else if(choice == 3){
+            int badge; // just for fun ig
             cout << "Please enter your badge number: "; 
-            cin;
+            cin >> badge;
             cout << "\nConfirmed.\nTotal balance across all accounts: ";
             cout << getTotalBalance(bank,5); //function call to get total balance
         }
