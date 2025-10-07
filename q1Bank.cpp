@@ -91,7 +91,7 @@ int main(){
         }
         else if(choice == 4){
             // show comparison of static and global variable
-            cout << "(transactionsCount called" << transactionCount() << " times\n";
+            cout << "(transactionsCount called" << transactionCount() - 1 << " times\n";
             cout << "(totalTransactions = " << totalTransactions << ")\n";
             displayMessage("Logging off.");
             break; // break from loop
